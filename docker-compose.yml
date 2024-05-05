@@ -8,7 +8,11 @@ services:
 #    restart: unless-stopped
     env_file:
       - ./env/docker.env
-      - ./env/.env
+      - ./env/bot.env
+      - ./env/postgres.env
+      - ./env/settings.env
     volumes:
       - ./logs/:/app/logs
+      - ./backups/:/app/backups
+      - /var/run/docker.sock:/var/run/docker.sock
     command: ["python", "main.py"]
