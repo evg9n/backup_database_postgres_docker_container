@@ -25,12 +25,27 @@ class Constants:
 
         # settings
         self.SEND_BOT_BACKUP = environ.get('SEND_BOT_BACKUP') == 'true'
+        self.SEND_S3_BACKUP = environ.get('SEND_S3_BACKUP') == 'true'
         self.SAVE_BACKUP = environ.get('SAVE_BACKUP') == 'true'
 
         if self.SEND_BOT_BACKUP:
             # telegram bot
             self.BOT_TOKEN = environ.get('BOT_TOKEN')
             assert self.BOT_TOKEN, 'Не найден BOT_TOKEN в env-файле'
+
+        if self.SEND_S3_BACKUP:
+            # S3
+            self.S3_ACCESS_KEY = environ.get('S3_ACCESS_KEY')
+            assert self.S3_ACCESS_KEY, 'Не найден S3_ACCESS_KEY в env-файле'
+
+            self.S3_SECRET_KEY = environ.get('S3_SECRET_KEY')
+            assert self.S3_SECRET_KEY, 'Не найден S3_SECRET_KEY в env-файле'
+
+            self.S3_ENDPOINT_URL = environ.get('S3_ENDPOINT_URL')
+            assert self.S3_ENDPOINT_URL, 'Не найден S3_ENDPOINT_URL в env-файле'
+
+            self.S3_BUCKET_NAME = environ.get('S3_BUCKET_NAME')
+            assert self.S3_BUCKET_NAME, 'Не найден S3_BUCKET_NAME в env-файле'
 
         bot_list_users_id = environ.get('BOT_LIST_USERS_ID')
         assert bot_list_users_id, 'Не найден BOT_LIST_USERS_ID в env-файле'

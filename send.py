@@ -16,7 +16,7 @@ def send_file_via_telegram(file_path: str, bot_token: str, bot_list_users_id: li
         if file_path:
             with open(file_path, 'rb') as file:
                 for user_id in bot_list_users_id:
-                        bot.send_document(chat_id=user_id, document=file)
+                    bot.send_document(chat_id=user_id, document=file)
         else:
             for user_id in bot_list_users_id:
                     bot.send_message(chat_id=user_id, text=f'Не получилось сделать резервную копию {description_db}')

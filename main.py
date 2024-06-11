@@ -1,4 +1,6 @@
 # Логгер
+import asyncio
+
 from loguru import logger
 
 from os.path import abspath, join
@@ -6,6 +8,8 @@ from os import remove
 
 from backup import backup_database
 from send import send_file_via_telegram
+from s3 import main
+
 # Константы
 from constants import Constants
 
@@ -34,17 +38,28 @@ if __name__ == '__main__':
     logger.info('RUN PROJECT')
     backup_file = backup_database(c.NAME_DOCKER_CONTAINER_POSTGRES, c.USER_NAME_POSTGRES, c.NAME_DB_POSTGRES,
                                   c.DESCRIPTION_DB)
-    # backup_file = None
+    logger.info(f'{backup_file=}')
 
     if backup_file:
+        result_send = None
         if c.SEND_BOT_BACKUP:
             # Отправляем файл через Telegram бота
             result_send = send_file_via_telegram(backup_file, c.BOT_TOKEN, c.BOT_LIST_USERS_ID)
+            logger.info(f'{result_send=}')
             # if not c.SAVE_BACKUP and result_send:
             #     # Удаляем файл
             #     remove(backup_file)
 
-        if any([c.SEND_BOT_BACKUP]):
+        if c.SEND_S3_BACKUP:
+            asyncio.run(main(
+                path_file=backup_file,
+                access_key=c.S3_ACCESS_KEY,
+                secret_key=c.S3_SECRET_KEY,
+                endpoint_url=c.S3_ENDPOINT_URL,
+                bucket_name=c.S3_BUCKET_NAME,
+            ))
+
+        if result_send and any([c.SEND_BOT_BACKUP]):
             if not c.SAVE_BACKUP:
                 # Удаляем файл
                 remove(backup_file)
