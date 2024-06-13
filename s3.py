@@ -31,8 +31,11 @@ class S3Client:
     async def upload_file(
             self,
             file_path: str,
+            folder_name: str = './'
     ):
-        object_name = split(file_path)[1]
+        if not folder_name.endswith('/'):
+            folder_name += '/'
+        object_name = f"{folder_name}{split(file_path)[1]}"
         try:
             async with self.get_client() as client:
                 with open(file_path, "rb") as file:
@@ -65,7 +68,8 @@ class S3Client:
             logger.error(f"Error downloading file: {e}")
 
 
-async def main(path_file: str, access_key: str, secret_key: str, endpoint_url: str, bucket_name: str):
+async def main(path_file: str, access_key: str, secret_key: str, endpoint_url: str,
+               bucket_name: str, folder_name: str = './'):
     s3_client = S3Client(
         access_key=access_key,
         secret_key=secret_key,
@@ -73,4 +77,4 @@ async def main(path_file: str, access_key: str, secret_key: str, endpoint_url: s
         bucket_name=bucket_name,
     )
 
-    await s3_client.upload_file(path_file)
+    await s3_client.upload_file(path_file, folder_name)

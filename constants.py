@@ -47,6 +47,8 @@ class Constants:
             self.S3_BUCKET_NAME = environ.get('S3_BUCKET_NAME')
             assert self.S3_BUCKET_NAME, 'Не найден S3_BUCKET_NAME в env-файле'
 
+            self.S3_PATH_FOLDER = environ.get('S3_PATH_FOLDER', '.')
+
         bot_list_users_id = environ.get('BOT_LIST_USERS_ID')
         assert bot_list_users_id, 'Не найден BOT_LIST_USERS_ID в env-файле'
         self.BOT_LIST_USERS_ID = bot_list_users_id.split(',')
