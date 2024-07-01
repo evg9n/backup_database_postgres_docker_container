@@ -20,8 +20,12 @@ def backup_database(name_docker_container_postgres: str, user_name_postgres: str
 
         backup_file = join('backups', f'{description_db}_backup_{timestamp}.sql')
 
-        command = ['docker', 'exec', name_docker_container_postgres, 'pg_dump', '-U', user_name_postgres,
-                   name_db_postgres]
+        # command = ['docker', 'exec', name_docker_container_postgres, 'pg_dump', '-U', user_name_postgres,
+        #            name_db_postgres]
+
+        command = ['docker', 'exec', name_docker_container_postgres, 'pg_dumpall', '-h', 'localhost', '-p', '5432',
+                   '-U', user_name_postgres]
+        # 'pg_dumpall -h localhost -p 5432 -U your_username > full_backup.sql'
         with open(backup_file, 'wb') as file:
             subprocess.run(command, stdout=file, check=True)
     except Exception as e:
