@@ -46,9 +46,6 @@ if __name__ == '__main__':
             # Отправляем файл через Telegram бота
             result_send = send_file_via_telegram(backup_file, c.BOT_TOKEN, c.BOT_LIST_USERS_ID)
             logger.info(f'{result_send=}')
-            # if not c.SAVE_BACKUP and result_send:
-            #     # Удаляем файл
-            #     remove(backup_file)
 
         if c.SEND_S3_BACKUP:
             asyncio.run(main(

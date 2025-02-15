@@ -1,12 +1,13 @@
 import subprocess
 import datetime
 from os.path import join
+from typing import Optional
 
 from loguru import logger
 
 
 def backup_database(name_docker_container_postgres: str, user_name_postgres: str, name_db_postgres: str,
-                    description_db: str):
+                    description_db: str) -> Optional[str]:
     """
     Резервная копия базы данных
     :param name_docker_container_postgres: имя вашего контейнера postgres
@@ -20,12 +21,8 @@ def backup_database(name_docker_container_postgres: str, user_name_postgres: str
 
         backup_file = join('backups', f'{description_db}_backup_{timestamp}.sql')
 
-        # command = ['docker', 'exec', name_docker_container_postgres, 'pg_dump', '-U', user_name_postgres,
-        #            name_db_postgres]
-
         command = ['docker', 'exec', name_docker_container_postgres, 'pg_dumpall', '-h', 'localhost', '-p', '5432',
                    '-U', user_name_postgres]
-        # 'pg_dumpall -h localhost -p 5432 -U your_username > full_backup.sql'
         with open(backup_file, 'wb') as file:
             subprocess.run(command, stdout=file, check=True)
     except Exception as e:
