@@ -165,3 +165,8 @@ logs/*
 
 backups/*
 !backups/.gitkeep
+
+crypto/keys/*
+!crypto/keys/.gitkeep
+*.pem
+*.enc

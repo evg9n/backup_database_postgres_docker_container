@@ -9,6 +9,7 @@ from os import remove
 from backup import backup_database
 from send import send_file_via_telegram
 from s3 import main
+from crypto.encrypto import main as encrypto
 
 # Константы
 from constants import Constants
@@ -39,6 +40,16 @@ if __name__ == '__main__':
     backup_file = backup_database(c.NAME_DOCKER_CONTAINER_POSTGRES, c.USER_NAME_POSTGRES, c.NAME_DB_POSTGRES,
                                   c.DESCRIPTION_DB)
     logger.info(f'{backup_file=}')
+
+    if c.USE_ENCRYPTO:
+        logger.info('Началось шифрование файла')
+        result = encrypto(
+            public_key_path=c.PATH_PUBLIC_KEY_ENCRYPTO,
+            file_to_encrypt=backup_file,
+            delete_origin_file=False
+        )
+        if result:
+            backup_file = result
 
     if backup_file:
         result_send = None
