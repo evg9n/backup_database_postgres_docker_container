@@ -46,7 +46,7 @@ if __name__ == '__main__':
         result = encrypto(
             public_key_path=c.PATH_PUBLIC_KEY_ENCRYPTO,
             file_to_encrypt=backup_file,
-            delete_origin_file=False
+            delete_origin_file=True
         )
         if result:
             backup_file = result
