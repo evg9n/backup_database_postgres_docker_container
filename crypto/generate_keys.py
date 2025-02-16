@@ -45,4 +45,4 @@ def generate_keys(name_key: str = 'key', path_dir_save: str = None):
     )
 
 if __name__ == '__main__':
-    generate_keys(name_key='new')
+    generate_keys()
