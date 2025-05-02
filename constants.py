@@ -52,6 +52,10 @@ class Constants:
 
             self.S3_PATH_FOLDER = environ.get('S3_PATH_FOLDER', '.')
 
+            self.S3_MAX_AGE_DAYS = int(environ.get('S3_MAX_AGE_DAYS', '0'))
+            self.S3_MAX_HOURS = int(environ.get('S3_MAX_HOURS', '0'))
+            self.S3_MAX_MINUTES = int(environ.get('S3_MAX_MINUTES', '0'))
+
         # postgres
         self.NAME_DOCKER_CONTAINER_POSTGRES = environ.get('NAME_DOCKER_CONTAINER_POSTGRES')
         assert self.NAME_DOCKER_CONTAINER_POSTGRES, 'Не найден NAME_DOCKER_CONTAINER_POSTGRES в env-файле'

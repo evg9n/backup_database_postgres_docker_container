@@ -65,7 +65,10 @@ if __name__ == '__main__':
                 secret_key=c.S3_SECRET_KEY,
                 endpoint_url=c.S3_ENDPOINT_URL,
                 bucket_name=c.S3_BUCKET_NAME,
-                folder_name=c.S3_PATH_FOLDER
+                folder_name=c.S3_PATH_FOLDER,
+                max_age_days=c.S3_MAX_AGE_DAYS,
+                max_hours=c.S3_MAX_HOURS,
+                max_minutes=c.S3_MAX_MINUTES,
             ))
 
         if result_send and any([c.SEND_BOT_BACKUP]):
