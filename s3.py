@@ -117,7 +117,7 @@ class S3Client:
                                 logger.info(f"Удален старый файл: {object_key}, "
                                             f"дата редактирвания: {obj['LastModified']}")
 
-                    logger.info(f"Удалено {deleted_count} файлов страже "
+                    logger.info(f"Удалено {deleted_count} файлов старше "
                                 f"{self.max_age_days} дней "
                                 f"{self.max_hours} часов "
                                 f"{self.max_minutes} минут "
