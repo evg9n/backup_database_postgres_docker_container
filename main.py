@@ -37,8 +37,14 @@ logger.add(
 
 if __name__ == '__main__':
     logger.info('RUN PROJECT')
-    backup_file = backup_database(c.NAME_DOCKER_CONTAINER_POSTGRES, c.USER_NAME_POSTGRES, c.NAME_DB_POSTGRES,
-                                  c.DESCRIPTION_DB)
+    backup_file = backup_database(
+        docker_container_name=c.NAME_DOCKER_CONTAINER_POSTGRES,
+        user_name_postgres=c.USER_NAME_POSTGRES,
+        name_db_postgres=c.NAME_DB_POSTGRES,
+        use_docker=c.USER_DOCKER_POSTGRES,
+        port=c.PORT_POSTGRES,
+        host=c.HOST_POSTGRES,
+        description_db=c.DESCRIPTION_DB)
     logger.info(f'{backup_file=}')
 
     if c.USE_ENCRYPTO:

@@ -69,6 +69,11 @@ class Constants:
         self.DESCRIPTION_DB = environ.get('DESCRIPTION_DB')
         assert self.DESCRIPTION_DB, 'Не найден DESCRIPTION_DB в env-файле'
 
+        self.USER_DOCKER_POSTGRES = environ.get('USER_DOCKER_POSTGRES') == 'true'
+
+        self.HOST_POSTGRES = environ.get('HOST_POSTGRES', 'localhost')
+        self.PORT_POSTGRES = int(environ.get('PORT_POSTGRES', '5432'))
+
         # encrypt
         if self.USE_ENCRYPTO:
             self.PATH_PUBLIC_KEY_ENCRYPTO = environ.get('PATH_PUBLIC_KEY_ENCRYPTO')
